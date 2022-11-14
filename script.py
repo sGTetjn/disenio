@@ -1,7 +1,7 @@
 import os
 import csv
 
-TITULOS = ["Digit.forw", "Digit.back", "Stroop.corr", "Stroop.rt", "Go.forw", "Go.back", "Nogo.forw", "Nogo.back", "Gonogo.rt", "Digit.forw", "Digit.back", "Stroop.corr", "Stroop.rt", "Go.forw", "Go.back", "Nogo.forw", "Nogo.back", "Gonogo.rt"]
+TITULOS = ["Grupo", "Digit.forw", "Digit.back", "Stroop.corr", "Stroop.rt", "Go.forw", "Go.back", "Nogo.forw", "Nogo.back", "Gonogo.rt", "Digit.forw", "Digit.back", "Stroop.corr", "Stroop.rt", "Go.forw", "Go.back", "Nogo.forw", "Nogo.back", "Gonogo.rt"]
 
 
 def main():
@@ -22,7 +22,7 @@ def main():
                         subject.append(stroop(reader))
             with open("resultados.csv", "a", encoding="UTF-8") as g:
                 writer = csv.writer(g, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
-                writer.writerow([item for sublist in subject for item in sublist])
+                writer.writerow([group.name] + [item for sublist in subject for item in sublist])
 
 def digit_span(reader, f):
     adi = [a["Forward WM score"] for a in reader]
