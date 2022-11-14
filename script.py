@@ -1,16 +1,28 @@
+import os
 import csv
 
-#PATH = "/home/theone/Programillas/disenio/pre/digit/BereniceNoriega_DS_Adapt1L_2022-10-27_08h46.10.207.csv"
-#PATH = "/home/theone/Programillas/disenio/pre/stroop/BereniceNoriega_StroopTask_2022-10-27_09h03.20.038.csv"
-PATH = "/home/theone/Programillas/disenio/pre/gonogo/AndreaRosales_Trial go no go_2022-10-27_14h10.55.062.csv"
+TITULOS = ["Digit.forw", "Digit.back", "Stroop.corr", "Stroop.rt", "Go.forw", "Go.back", "Nogo.forw", "Nogo.back", "Gonogo.rt", "Digit.forw", "Digit.back", "Stroop.corr", "Stroop.rt", "Go.forw", "Go.back", "Nogo.forw", "Nogo.back", "Gonogo.rt"]
+
 
 def main():
-    with open(PATH, newline="", encoding="UTF-8") as f:
-        reader = csv.DictReader(f)
-
-        for name in NOMBRES:
-            ...
-
+    with open("resultados.csv", "a", encoding="UTF-8", newline="") as g:
+        writer = csv.writer(g, delimiter="\t", quoting=csv.QUOTE_MINIMAL)
+        writer.writerow([TITULOS])
+    for group in os.scandir("a"):
+        for name in os.scandir(group):
+            subject = []
+            for test in sorted(os.scandir(name), key=lambda x: x.name):
+                with open(test, encoding="UTF-8") as f:
+                    reader = csv.DictReader(f)
+                    if "DS" in test.name:
+                        subject.append(digit_span(reader, f))
+                    elif "go no go" in test.name:
+                        subject.append(go_nogo(reader))
+                    else:
+                        subject.append(stroop(reader))
+            with open("resultados.csv", "a", encoding="UTF-8") as g:
+                writer = csv.writer(g, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
+                writer.writerow([item for sublist in subject for item in sublist])
 
 def digit_span(reader, f):
     adi = [a["Forward WM score"] for a in reader]
@@ -21,10 +33,10 @@ def digit_span(reader, f):
     rev = [a["Backward WM score"] for a in reader]
     reversa = next(cell for cell in rev[::-1] if cell != "")
 
-    return adelante, reversa
+    return round(float(adelante), 3), round(float(reversa), 3)
 
 
-def go_nogo(reader, f):
+def go_nogo(reader):
     go_ad = []
     go_re = []
     no_ad = []
@@ -56,7 +68,7 @@ def go_nogo(reader, f):
     return go_ad, go_re, no_ad, no_re, tiempo
 
 
-def stroop(reader, f):
+def stroop(reader):
     obser = []
     tiempo = []
 
@@ -69,7 +81,7 @@ def stroop(reader, f):
     punt = sum(obser) / len(obser)
     resp = round(sum(tiempo) / len(tiempo), 3)
 
-    return punt, resp
+    return round(punt, 3), round(resp, 3)
 
 
 if __name__ == "__main__":
