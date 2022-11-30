@@ -1,14 +1,15 @@
 import os
 import csv
 
-TITULOS = ["Grupo", "Digit.forw", "Digit.back", "Stroop.corr", "Stroop.rt", "Go.forw", "Go.back", "Nogo.forw", "Nogo.back", "Gonogo.rt", "Digit.forw", "Digit.back", "Stroop.corr", "Stroop.rt", "Go.forw", "Go.back", "Nogo.forw", "Nogo.back", "Gonogo.rt"]
-
+TITULOS = ["Grupo", "Digit.forw", "", "Digit.back", "", "Stroop.corr", "", "Stroop.rt", "", "Go.forw", "", "Go.back", "", "Nogo.forw", "", "Nogo.back", "", "Gonogo.rt", ""]
+SUBS = ["", "Pre", "Post", "Pre", "Post", "Pre", "Post", "Pre", "Post", "Pre", "Post", "Pre", "Post", "Pre", "Post", "Pre", "Post", "Pre", "Post"]
 
 def main():
     with open("resultados.csv", "a", encoding="UTF-8", newline="") as g:
         writer = csv.writer(g, delimiter="\t", quoting=csv.QUOTE_MINIMAL)
         writer.writerow([TITULOS])
-    for group in os.scandir("a"):
+        writer.writerow([SUBS])
+    for group in os.scandir("data"):
         for name in os.scandir(group):
             subject = []
             for test in sorted(os.scandir(name), key=lambda x: x.name):
@@ -22,7 +23,11 @@ def main():
                         subject.append(stroop(reader))
             with open("resultados.csv", "a", encoding="UTF-8") as g:
                 writer = csv.writer(g, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
-                writer.writerow([group.name] + [item for sublist in subject for item in sublist])
+                subject = [item for sublist in subject for item in sublist]
+                subject1 = subject.copy()
+                subject1[::2] = subject[:len(subject)//2]
+                subject1[1::2] = subject[len(subject)//2:]
+                writer.writerow([group.name] + subject1)
 
 def digit_span(reader, f):
     adi = [a["Forward WM score"] for a in reader]
