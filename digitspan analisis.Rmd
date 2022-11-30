@@ -1,0 +1,153 @@
+---
+title: "digitspan interpretation"
+author: Sebastian Valero, Abe Espinosa, Diego Fuentes, Monserrat Gonzalez, Airy Mozo,
+  Joan Valle, Cam Roa
+date: "2022-11-24"
+output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# **Análisis de tarea: Digit Span Forward**
+
+En este Markdown estaremos analizando la sección hacia adelante o
+'forward' de Digit Span. Esto lo haremos tanto con las prepruebas como
+con las postpruebas.
+
+## Empezaremos con las ***prepruebas***:
+
+### 1) Cargar librerías necesarias
+
+```{r Librerias, echo=TRUE, message=FALSE, warning=FALSE}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(tidyverse, ggplot2, ggpubr, coin, effsize,PMCMRplu)
+```
+
+### 2) Cargar la base de datos, en donde tenemos los puntajes de cada prueba
+
+BD <- read.csv(file = "/.resultados.csv")
+str(BD)
+
+## Verificación de las asunciones de normalidad y homogeneidad de varianzas/ Normalidad de grupos
+
+### 1) Test de hipótesis: Shapiro-Wilk con modificación de Lilliefors
+
+I)  Realizar el test de Shapiro en cada uno de los grupos.
+
+shapiro.test(BD$Digit.forw[BD$Grupo=="Lectura"])
+shapiro.test(BD$Digit.forw[BD$Grupo=="Control"])
+shapiro.test(BD$Digit.forw[BD$Grupo=="Cuestionario"])
+
+II) Visualización
+
+ggplot(BD, aes(x=Digit.forw, color=Grupo)) + geom_density() +
+scale_color_manual(values = c("#42D9C8","#D63230", "#0000FF"))+
+theme_minimal()+ labs(title = 'Distribución de tipo de grupo', color =
+'Grupo', x = 'Puntuación total en la tarea: Forward Digit Span - Pre',
+y='Densidad', caption="Shapiro-Wilk: \nLectura: p-value 0.319 \nControl:
+p-value 0.964 \nCuestionario: p-value 0.099")
+
+## Homogeneidad de Varianzas/Homoscedasticidad ---------------
+
+## Test de hipótesis: Test de Barlett
+
+bartlett.test(BD$Digit.forw~BD$Grupo)
+
+## Visualización
+
+ggplot(data = BD, aes(x = Grupo, y = Digit.forw, colour = Grupo)) +
+geom_boxplot() + labs(title = 'Puntuación total en la tarea: Forward
+Digit Span - Pre', x = 'Grupo', y = 'Puntuación total', caption = " Test
+de Barlett: p=0.059") + theme_bw() + theme(legend.position = "none")
+
+# Comparación de grupos -----------------------------------
+
+## 1) Usamos la prueba no paramétrica Kruskal-Wallis
+
+### I) Realizamos la prueba
+
+unique(BD$Grupo) 
+kruskal.test(Digit.forw ~ Grupo,data = BD)
+
+### II) Visualización
+
+ggplot(data = BD, aes(x = Grupo, y = Digit.forw, colour = Grupo)) +
+geom_boxplot() + labs(title = 'Kruskal-Wallis test - Sumatoria de
+Rango', x = 'Grupos', y = 'Puntuación total Pre Digit Forward Task',
+caption = "p value= 0.75") + stat_compare_means(method =
+"kruskal.test")+ # Agrega p-values comparando grupos theme_bw() +
+theme(legend.position = "none")
+
+# Se repite el mismo proceso con las post evaluaciones
+
+## Verificación de las asunciones de normalidad y homogeneidad de varianzas/ Normalidad de grupos
+
+### 1) Test de hipótesis: Shapiro-Wilk con modificación de Lilliefors
+
+I)  Realizar el test de Shapiro en cada uno de los grupos.
+
+shapiro.test(BD$Digit.forw.1[BD$Grupo=="Lectura"])
+shapiro.test(BD$Digit.forw.1[BD$Grupo=="Control"])
+shapiro.test(BD$Digit.forw.1[BD$Grupo=="Cuestionario"])
+
+II) Visualización
+
+ggplot(BD, aes(x=Digit.forw, color=Grupo)) + geom_density() +
+scale_color_manual(values = c("#42D9C8","#D63230", "#0000FF"))+
+theme_minimal()+ labs(title = 'Distribución de tipo de grupo', color =
+'Grupo', x = 'Puntuación total en la tarea: Forward Digit Span - Post',
+y='Densidad', caption="Shapiro-Wilk: \nLectura: p-value 0.53 \nControl:
+p-value 0.31 \nCuestionario: p-value 0.77")
+
+## Homogeneidad de Varianzas/Homoscedasticidad ---------------
+
+## Test de hipótesis: Test de Barlett
+
+bartlett.test(BD$Digit.forw.1~BD$Grupo)
+
+## Visualizacion
+
+ggplot(data = BD, aes(x = Grupo, y = Digit.forw.1, colour = Grupo)) +
+geom_boxplot() + labs(title = 'Puntuación total en la tarea: Forward
+Digit Span - Post', x = 'Grupo', y = 'Puntuación total', caption = "
+Test de Barlett: p=0.33") + theme_bw() + theme(legend.position = "none")
+
+# Comparación de grupos -----------------------------------
+
+## Usamos la prueba no paramétrica Kruskal-Wallis
+
+#I) Realizamos la prueba 
+unique(BD$Grupo) 
+kruskal.test(Digit.forw.1 ~
+Grupo,data = BD)
+
+## Visualización
+
+ggplot(data = BD, aes(x = Grupo, y = Digit.forw.1, colour = Grupo)) +
+geom_boxplot() + labs(title = 'Kruskal-Wallis test - Sumatoria de
+Rango', x = 'Grupos', y = 'Puntuación total Post Digit Forward Task',
+caption = "p value= 0.791") + stat_compare_means(method =
+"kruskal.test")+ # Agrega p-values comparando grupos theme_bw() +
+theme(legend.position = "none")
+
+# Se realiza una comparación entre grupos pre y post
+
+## 1) Subir la base de datos
+
+CBD <- read.csv(file = "./Control.csv")
+str(CBD)
+
+## 2) Se realiza el test U de Mann-Whitney
+
+coin::wilcox_test(Digit.forw ~ as.factor(Grupo), data = CBD,
+distribution = "exact", conf.int=0.95)
+
+## Visualización
+
+ggplot(data = CBD, aes(x = Grupo, y = Digit.forw, colour = Grupo)) +
+geom_boxplot() + labs(title = 'Comparación Pre y Post Digit Forward
+Task', x = 'Grupos', y = 'Puntuación') +
+geom_label(label="Mann-Whithney, p= 0.84", x="Dom",y=28,
+label.size=0.0008) + theme_bw() + theme(legend.position = "none")
+
