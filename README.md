@@ -107,5 +107,26 @@ Con los resultados anteriores, no se pudieron encontrar valores significativos d
 
 ## **Referencias**
 
-McClure, K., Chen, H.-T., & Thomas, M. (2021). Literature Genre Effects on Memory and Influence. 14.
-(McClure, Chen and Thomas, 2021)
+* Miyake, A., Friedman, N. P., Emerson, M. J., Witzki, A. H., Howerter, A. & Wager, T. D. (2000). The Unity and Diversity of Executive Functions and Their Contributions to Complex “Frontal Lobe” Tasks: A Latent Variable Analysis. Cognitive Psychology, 41(1), 49-100. https://doi.org/10.1006/cogp.1999.0734
+
+* Portellano, J. A. (2022). Introduccion A La Neuropsicologia (1.a ed.). MCGRAW HILL EDDUCATION.
+
+* Jacobs, R. & Anderson, V. (2002). Planning and Problem Solving Skills Following Focal Frontal Brain Lesions in Childhood: Analysis Using the Tower of London. Child Neuropsychology, 8(2), 93-106. https://doi.org/10.1076/chin.8.2.93.8726
+
+* CogniFit. (2016, 8 junio). Memoria de Trabajo. Memoria de Trabajo o Memoria Operativa - Habilidad Cognitiva. https://www.cognifit.com/mx/habilidad-cognitiva/memoria-de-trabajo
+
+* Paul W. Burgess. (2004b). Theory and Methodology in Executive Function Research. Methodology Of Frontal And Executive Function, 87-121. https://doi.org/10.4324/9780203344187-8
+
+* Mandler, J. M. & Johnson, N. S. (1977). Remembrance of things parsed: Story structure and recall. Cognitive Psychology, 9(1), 111-151. https://doi.org/10.1016/0010-0285(77)90006-8
+
+* Rumelhart, D. E. (1980). On Evaluating Story Grammars*. Cognitive Science, 4(3), 313-316. https://doi.org/10.1207/s15516709cog0403_5
+
+* Berns, G. S., Blaine, K., Prietula, M. J. & Pye, B. E. (2013). Short- and Long-Term Effects of a Novel on Connectivity in the Brain. Brain Connectivity, 3(6), 590-600. https://doi.org/10.1089/brain.2013.0166
+
+* Jacobs, A. M. (2017). Affective and Aesthetic Processes in Literary Reading. Cognitive Literary Science, 303-325. https://doi.org/10.1093/acprof:oso/9780190496869.003.0016
+
+* McClure, K., Chen, H.-T., & Thomas, M. (2021). Literature Genre Effects on Memory and Influence. 14.
+
+* Spencer, M., Richmond, M. C., & Cutting, L. E. (2020). Considering the Role of Executive Function in Reading Comprehension: A Structural Equation Modeling Approach. Scientific studies of reading : the official journal of the Society for the Scientific Study of Reading, 24(3), 179–199. https://doi.org/10.1080/10888438.2019.1643868
+
+* Restrepo, G., Calvachi, L., Cano, I.C., & Ruiz, A.L. (2019). Las funciones ejecutivas y la lectura: Revisión sistemática de la literatura. Informes Psicológicos, 19(2), pp. 81-94  http://dx.doi.org/10.18566/ infpsic.v19n2a06
